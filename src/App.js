@@ -10,21 +10,42 @@ function App() {
     let trophy = price ? "🏆" : ""
     return trophy
   }
-
   const addRandomContact = ()=>{
     const newContact = remainingContacts[Math.floor(Math.random() * remainingContacts.length)]
 
     const newRemainingContacts = remainingContacts.filter((contact) => contact.id !== newContact.id)
-    
+
     setContactsToShow([...contactsToShow, newContact])
     setRemainingContacts(newRemainingContacts)
+  }
+  
+  const compareRating = (a, b) =>{
+    if (a.popularity < b.popularity) return -1
+    else if (a.popularity > b.popularity) return 1
+    else return 0  
+  }
+
+  const sortByPop = ()=>{
+    const arraySorted = contactsToShow.sort(compareRating)
+    setContactsToShow([...arraySorted])
+  }
+
+  const compareName = (a, b) =>{
+    if (a.name < b.name) return -1
+    else if (a.name > b.name) return 1
+    else return 0  
+  }
+
+  const sortByName = ()=>{
+    const arraySortedByName = contactsToShow.sort(compareName)
+    setContactsToShow([...arraySortedByName])
   }
 
   return <div className="App">
     <h2>Iron Contacts</h2>
     <button onClick={addRandomContact}>Add Random Contact</button>
-    <button>Sort by popularity</button>
-    <button>Sort by name</button>
+    <button onClick={sortByPop}>Sort by popularity</button>
+    <button onClick={sortByName}>Sort by name</button>
     <table>
       <thead>
       <tr>
