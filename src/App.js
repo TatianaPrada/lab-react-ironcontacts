@@ -41,6 +41,14 @@ function App() {
     setContactsToShow([...arraySortedByName])
   }
 
+  const deleteContact = (contactToDelete) => {
+    const filteredContact = contactsToShow.filter((item) => {
+      return contactToDelete !== item.id;
+    });
+
+    setContactsToShow(filteredContact);
+  };
+
   return <div className="App">
     <h2>Iron Contacts</h2>
     <button onClick={addRandomContact}>Add Random Contact</button>
@@ -54,6 +62,7 @@ function App() {
         <th>Popularity</th>
         <th>Won Oscar</th>
         <th>Won Emmy</th>
+        <th>Actions</th>
       </tr>
       </thead>
         <tbody>
@@ -64,7 +73,8 @@ function App() {
           <td>{contact.name}</td>       
           <td>{contact.popularity.toFixed(2)}</td> 
           <td>{checkTrophies(contact.wonOscar)}</td>     
-          <td>{checkTrophies(contact.wonEmmy)}</td> 
+          <td>{checkTrophies(contact.wonEmmy)}</td>
+          <td><button onClick={()=>deleteContact(contact.id)}>Delete</button></td> 
           </tr>
         )
     })}
